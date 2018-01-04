@@ -9,6 +9,7 @@ $font-color-something-light: #bcbcbc;
 $highlight-blue: #1f5cd3;
 $highlight-purple: #2c2886;
 $color-white:#fff;
+$background-color: #fafafa;
 
 
 
@@ -59,12 +60,49 @@ body {
 	font-family:$font-family-reading;
 	font-size:$font-baseline;
 	color:$font-color-dark;
+	
 
 }
 
 a, a:hover {
 	text-decoration:none;
 }
+
+code {
+	font-family: Georgia, serif;
+}
+
+
+blockquote {
+	
+	background: rgba($highlight-blue,.04);
+	border-left: 10px solid $highlight-blue;
+	margin: 2em 0;
+	padding: 1em 1.2em;
+	quotes: "\201C""\201D""\2018""\2019";
+  
+	p {
+		display: inline;
+	}
+
+	&:before {
+		color: $font-color-something-light;
+		content: open-quote;
+		font-size: 4em;
+		line-height: 0.1em;
+		margin-right: 0.25em;
+		vertical-align: -0.4em;
+	}
+
+	cite {
+		font-size: .6em;
+		font-style: normal;
+		font-family: $font-family-header;
+	}
+
+	
+}
+
 
 //Helpers
 @mixin transition($property: all, $duration: .3s, $ease: ease-in){
@@ -87,5 +125,11 @@ a, a:hover {
   &:after {
     clear: both;
   }
+}
+
+table {
+    @extend %table;
+    @extend %table-condensed;
+    @extend %table-bordered;
 }
 

@@ -55,11 +55,10 @@
 		@extend %clearfix;
 		width: 100%;
 		display: block;
-		border: 1px solid;
 		text-align: center;
 		padding: 2em 0;
 
-		a{
+		a {
 			display: inline-block;
 			background: $highlight-purple;
 			color: $color-white;
@@ -69,5 +68,137 @@
 			font-family:$font-family-header;
 
 		}
+	}
+}
+
+// Single Post
+
+.post-header-wrapper {
+
+	.post-title {
+		margin: 0 auto;
+		padding: 2em 0 4em;
+		max-width: 60%;
+
+		h2 {
+			font-size: 3em;
+		}
+		span {
+			display: inline-block;
+			padding-top: 1em;
+			font-family:$font-family-header;
+			color: $font-color-something-light;
+		}
+
+		.excerpt {
+			margin: 1em 0;
+			color: $font-color-something-light;
+			font-family:$font-family-header;
+			font-style: italic;
+			display: none;
+		}
+	}
+	.post-image {
+		height: 500px;
+		overflow: hidden;
+		width: 60%;
+		margin: 0 auto;
+		position:relative;
+		margin-bottom: 4em;
+
+		img {
+			object-fit:contain;
+			width: 100%;
+		}
+		.caption {
+			position: absolute;
+			bottom:0;
+			right:0;
+			background:$color-white;
+			color: lighten($font-color-dark,50%);
+			font-family:$font-family-header;
+			font-size: .6em;
+			padding: .5em 1em;
+			font-style: italic;
+
+			a {
+				color: $font-color-dark;
+				text-decoration: underline;
+			}
+
+		}
+	}
+}
+
+.post-content {
+	max-width: 60%;
+	margin:0 auto;
+	word-break: break-word;
+	word-wrap: break-word;
+	font-size: 1.2em;
+	color: rgba(0,0,0,.8);
+
+	.the-post {
+		table {
+			margin: 2em 0;
+			font-size: .9em;
+			font-family:$font-family-header;
+		}
+		p {
+			display: block;
+			margin: 1em 0;
+			
+
+			img {
+				margin: 1em 0;
+				display: block;
+			}
+		}
+
+		img {
+			height: auto;
+
+			&.size-large {
+				width: 100%;
+			}
+			&.size-medium {
+				width: 60%;
+			}
+
+			&.size-thumbnail {
+				max-width: 160px;
+			}
+			&.alignright{
+				float: right;
+				margin-right: -2em;
+				margin-left: 2em;
+				padding-bottom: 2em;
+				
+			}
+			
+		}
+
+		.wp-caption {
+			min-width: 70%;
+			width: 70%;
+			padding: 1em 0;
+			margin: 1em 0;
+
+			img {
+				width: 100%;
+				object-fit:cover;
+			}
+			.wp-caption-text {
+				margin: 0;
+				color: $font-color-something-light;
+				font-family:$font-family-header;
+				background:$color-white;
+				font-size: .6em;
+				padding: .5em 0;
+				font-style: italic;
+			}
+		}
+
+
 	}
 }
