@@ -1,3 +1,18 @@
+%clearfix {
+    *zoom: 1;
+    &:before,
+    &:after {
+        display: table;
+        content: "";
+        // Fixes Opera/contenteditable bug:
+        // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+        line-height: 0;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
 .post-list-wrapper {
 	
 	display:flex;
@@ -144,9 +159,41 @@
 			font-size: .9em;
 			font-family:$font-family-header;
 		}
+		
+		h1 {
+			font-size: ($font-baseline * 3);
+			margin-bottom: ($font-baseline * 3);
+		}
+
+		h2 {
+			font-size: ($font-baseline * 2.5);
+			margin-bottom: ($font-baseline * 2.5);
+		}
+
+		h3 {
+			font-size: ($font-baseline * 2);
+			margin-bottom: ($font-baseline * 2);
+		}
+
+		h4 {
+			font-size: ($font-baseline * 1.5);
+			margin-bottom: ($font-baseline * 1.5);
+		}
+
+		h5 {
+			font-size: ($font-baseline * 1);
+			margin-bottom: ($font-baseline * 1.5);
+		}
+
+		h6 {
+			font-size: ($font-baseline * .8);
+			margin-bottom: ($font-baseline * 1.5);
+		}
+
 		p {
 			display: block;
 			margin: 1em 0;
+			clear:both;
 			
 
 			img {
@@ -154,8 +201,40 @@
 				display: block;
 			}
 		}
+		
+		.gallery {
+			clear:both;
+			width: 100%;
+			@extend %clearfix;
+			display: flex;
+			justify-content:space-between;
+			align-items:flex-start;
+			flex-wrap:wrap;
+			
+			.gallery-item {
+				max-width: 33.33%;
+				
+				a {
+					display: block;
+					width: 100%;
+					height: 180px;
+					object-fit: contain;
+					overflow: hidden;
+					border: 5px solid $color-white;
+					
 
+					img {
+						width: 100%;
+						object-fit:cover;
+                		object-position:0 0;
+					}
+				}
+
+			}
+		}
 		img {
+			margin-top: 0;
+			padding-top: 0;
 			height: auto;
 
 			&.size-large {
@@ -168,12 +247,17 @@
 			&.size-thumbnail {
 				max-width: 160px;
 			}
-			&.alignright{
+			&.alignright {
 				float: right;
 				margin-right: -2em;
 				margin-left: 2em;
 				padding-bottom: 2em;
-				
+			}
+			&.alignleft {
+				float: left;
+				margin-left: -2em;
+				margin-right: 2em;
+				padding-bottom: 2em;
 			}
 			
 		}
