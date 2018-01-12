@@ -11,7 +11,7 @@ Plain is a simple, yet bold WordPress theme that will help you kickstart your (h
 
 You can install plain from your wordpress theme directory. Use the link below to download it.
 
-* [Dropwizard](http://www.link) - Link Link Link
+* [Wordpress Download](http://www.link) - Link Link Link
 
 ## Other Things To Note
 
@@ -19,7 +19,7 @@ I was very particular about Plain and making sure that it's accessible.
 
 ## Built With
 
-* [Dropwizard](https://github.com/html5blank/) - HTML5Blank
+* [HTML5Blank](https://github.com/html5blank/) - HTML5Blank
 
 ## Contributing
 
