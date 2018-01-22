@@ -24,3 +24,7 @@ I was very particular about Plain and making sure that it's accessible.
 ## Contributing
 
 I don't have a grand Code of Conduct; just be a decent human.
+
+## Requests
+
+I guess I should add that if you want this theme ported to your CMS of choice, you can leave let know. 
