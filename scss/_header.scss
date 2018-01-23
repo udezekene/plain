@@ -29,11 +29,28 @@ header {
       a {
         font-size: 1.4em;
         display: block;
-        color: lighten($font-color-dark, 60%);
-
+        color: lighten($font-color-dark, 10%);
+        @include transition(color, .3s);
+        
         &:hover {
-          color: $highlight-blue;
-          @include transition(color, .3s);
+          
+
+          &.facebook {
+            color: $social-facebook;
+          }
+          &.twitter {
+            color: $social-twitter;
+              
+          }
+          &.instagram {
+            color: $social-instagram;
+          }
+          &.linkedin {
+            color: $social-linkedin;
+          }
+          &.github{
+            color: $social-github;
+          }
         }
       }
     }
