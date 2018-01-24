@@ -1,0 +1,293 @@
+.load-more {
+	clear: both;
+  content: "";
+	min-width: 100%;
+	display: block;
+	text-align: center;
+	padding: 2em 0 4em 0;
+
+	a {
+		display: inline-block;
+		background: $highlight-purple;
+		color: $color-white;
+		padding: .6em 1.4em;
+		border-radius: 3px;
+		font-size: 1em;
+		font-family:$font-family-header;
+		box-shadow: 0 5px 15px rgba(45, 44, 132, .6);
+
+	}
+}
+
+
+// Single Post
+
+.post-header-wrapper {
+
+	.post-title {
+		margin: 0 auto;
+		padding: 2em 0 4em;
+		max-width: 60%;
+
+		h2 {
+			font-size: 3em;
+		}
+		span {
+			display: inline-block;
+			padding-top: 1em;
+			font-family:$font-family-header;
+			color: $font-color-something-light;
+		}
+
+		.excerpt {
+			margin: 1em 0;
+			color: $font-color-something-light;
+			font-family:$font-family-header;
+			font-style: italic;
+			display: none;
+		}
+	}
+	.post-image {
+		height: 500px;
+		overflow: hidden;
+		width: 60%;
+		margin: 0 auto;
+		position:relative;
+		margin-bottom: 4em;
+
+		img {
+			object-fit:contain;
+			width: 100%;
+		}
+		.caption {
+			position: absolute;
+			bottom:0;
+			right:0;
+			background:$color-white;
+			color: lighten($font-color-dark,50%);
+			font-family:$font-family-header;
+			font-size: .6em;
+			padding: .5em 1em;
+			font-style: italic;
+
+			a {
+				color: $font-color-dark;
+				text-decoration: underline;
+			}
+
+		}
+	}
+}
+
+.post-content {
+	max-width: 60%;
+	margin:0 auto;
+	word-break: break-word;
+	word-wrap: break-word;
+	font-size: 1.2em;
+	color: rgba(0,0,0,.8);
+
+	.the-post {
+		table {
+			margin: 2em 0;
+			font-size: .9em;
+			font-family:$font-family-header;
+		}
+		
+		h1 {
+			font-size: ($font-baseline * 3);
+			margin-bottom: ($font-baseline * 3);
+		}
+
+		h2 {
+			font-size: ($font-baseline * 2.5);
+			margin-bottom: ($font-baseline * 2.5);
+		}
+
+		h3 {
+			font-size: ($font-baseline * 2);
+			margin-bottom: ($font-baseline * 2);
+		}
+
+		h4 {
+			font-size: ($font-baseline * 1.5);
+			margin-bottom: ($font-baseline * 1.5);
+		}
+
+		h5 {
+			font-size: ($font-baseline * 1);
+			margin-bottom: ($font-baseline * 1.5);
+		}
+
+		h6 {
+			font-size: ($font-baseline * .8);
+			margin-bottom: ($font-baseline * 1.5);
+		}
+
+		p {
+			display: block;
+			margin: 1em 0;
+			clear:both;
+			
+
+			img {
+				margin: 1em 0;
+				display: block;
+			}
+		}
+		
+		.gallery {
+			clear:both;
+			width: 100%;
+			@extend %clearfix;
+			display: flex;
+			justify-content:space-between;
+			align-items:flex-start;
+			flex-wrap:wrap;
+			
+			.gallery-item {
+				max-width: 33.33%;
+				
+				a {
+					display: block;
+					width: 100%;
+					height: 180px;
+					object-fit: contain;
+					overflow: hidden;
+					border: 5px solid $color-white;
+					
+
+					img {
+						width: 100%;
+						object-fit:cover;
+                		object-position:0 0;
+					}
+				}
+
+			}
+		}
+		img {
+			margin-top: 0;
+			padding-top: 0;
+			height: auto;
+
+			&.size-large {
+				width: 100%;
+			}
+			&.size-medium {
+				width: 60%;
+			}
+
+			&.size-thumbnail {
+				max-width: 160px;
+			}
+			&.alignright {
+				float: right;
+				margin-right: -2em;
+				margin-left: 2em;
+				padding-bottom: 2em;
+			}
+			&.alignleft {
+				float: left;
+				margin-left: -2em;
+				margin-right: 2em;
+				padding-bottom: 2em;
+			}
+			
+		}
+
+		.wp-caption {
+			min-width: 70%;
+			width: 70%;
+			padding: 1em 0;
+			margin: 1em 0;
+
+			img {
+				width: 100%;
+				object-fit:cover;
+			}
+			.wp-caption-text {
+				margin: 0;
+				color: $font-color-something-light;
+				font-family:$font-family-header;
+				background:$color-white;
+				font-size: .6em;
+				padding: .5em 0;
+				font-style: italic;
+			}
+		}
+
+
+	}
+}
+
+
+.post-list-wrapper{
+	display:flex;
+	flex-wrap:wrap;
+	justify-content:space-between;
+	flex-grow:0;
+
+	>div{
+		
+		@include device('desktop'){
+			width: 48%;
+		}
+
+		@include device('tablet'){
+			width: 48%;
+		}
+	}
+	.post-block {
+		margin-bottom: 2em;
+		font-size: $font-baseline * 1;
+
+		@include transition(all, .2s);
+		
+		&:hover {
+			transform: scale(1.02,1.02);
+			
+			h2 a {
+				color: $highlight-purple;
+			}
+		}
+
+		h2 {
+			font-size: $font-baseline * 1.6;
+			font-weight: 700;
+			margin: 10px 0;
+			
+			@include device('desktop'){
+				font-size: ($font-baseline * 2);
+			}
+
+			a {
+				display: block;
+				color:darken($font-color-dark, 20%);
+				&:hover {
+					color: $highlight-blue;
+				}
+
+			}
+		}
+		
+
+		.__image {
+			max-height: 350px;
+			border-radius: 5px;
+			overflow: hidden;
+			margin-bottom: 1em;
+			
+			img {
+				max-width:100%;
+			}
+		}
+
+		.__meta {
+			font-family:$font-family-header;
+			color: $font-color-dark;
+			text-transform: uppercase;
+			font-size: .8em;
+		}
+	}
+}
