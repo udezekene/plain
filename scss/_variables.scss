@@ -63,11 +63,9 @@ h6 {
 
 // Resets
 body {
-	font-family:$font-family-reading;
+	font-family:$font-family-header;
 	font-size:$font-baseline;
 	color:$font-color-dark;
-	
-
 }
 
 a, a:hover {
@@ -89,6 +87,7 @@ blockquote {
   
 	p {
 		display: inline;
+		font-family:$font-family-reading;
 	}
 
 	&:before {
@@ -151,9 +150,15 @@ blockquote {
 .wrapper{
 	max-width: 1280px;
 	width: 100%;
-	margin: 0 auto;
-	padding-left: 1em;
-	padding-right: 1em;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @include device('tablet'){
+  	padding-right: 20px;
+  	padding-left: 20px;
+  }
 }
 
 %clearfix {

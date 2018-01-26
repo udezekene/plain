@@ -63,6 +63,10 @@ header{
 
     @include device('phone') {
         max-width: 100%;
+    } 
+
+    @include device('tablet'){
+        max-width: 80%;
     }
     @include device('desktop') {
         max-width: 65%;
