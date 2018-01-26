@@ -242,6 +242,24 @@
 		margin-bottom: 2em;
 		font-size: $font-baseline * 1;
 
+
+		/* These are technically the same, but use both */
+	  overflow-wrap: break-word;
+	  word-wrap: break-word;
+
+	  -ms-word-break: break-all;
+	  /* This is the dangerous one in WebKit, as it breaks things wherever */
+	  word-break: break-all;
+	  /* Instead use this non-standard one: */
+	  word-break: break-word;
+
+	  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+	  -ms-hyphens: auto;
+	  -moz-hyphens: auto;
+	  -webkit-hyphens: auto;
+	  hyphens: auto;
+	  
+
 		@include transition(all, .2s);
 		
 		&:hover {
@@ -256,6 +274,23 @@
 			font-size: $font-baseline * 1.6;
 			font-weight: 700;
 			margin: 10px 0;
+
+			/* These are technically the same, but use both */
+		  overflow-wrap: break-word;
+		  word-wrap: break-word;
+
+		  -ms-word-break: break-all;
+		  /* This is the dangerous one in WebKit, as it breaks things wherever */
+		  word-break: break-all;
+		  /* Instead use this non-standard one: */
+		  word-break: break-word;
+
+		  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+		  -ms-hyphens: auto;
+		  -moz-hyphens: auto;
+		  -webkit-hyphens: auto;
+		  hyphens: auto;
+
 			
 			@include device('desktop'){
 				font-size: ($font-baseline * 2);

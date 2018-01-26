@@ -64,7 +64,7 @@ html { overflow-y: auto; }
 img, audio, video, canvas { max-width: 100%; }
 
 /*  Sets Body Width */
-.container {
+table.container {
     max-width: $container-max-width;
     width: $container-width;
     margin-left: auto;
