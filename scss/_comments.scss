@@ -1,0 +1,223 @@
+
+//////////////////////
+/// 
+/// Comments
+/// 
+//////////////////////
+
+.comments-wrapper{
+  width: 80%;
+  margin-top: 4em;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 15px;
+  background: #FCFAEF;
+
+  @include device('phone'){
+    width: 100%;
+  }
+
+  .comments{
+    > ul{
+      padding: 0;margin: 0;
+
+      > li{
+        padding: 0; margin: 0;
+        padding-bottom: 20px;
+        border-bottom: 2px solid darken( #FCFAEF, 20%);
+        position: relative;
+
+        video, iframe {
+          width: 100%;
+          height: 100%;
+          min-height: 420px;
+          max-width: 800px;
+        }
+
+        ul{
+
+          @include device('phone'){
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            margin-bottom: 0;
+            padding-bottom: 0;
+          }
+
+          li{
+           padding-bottom: 0; 
+          }
+        }
+
+        .reply{
+          top: 0;
+        }
+
+        + li{
+          padding-top: 20px;
+
+          .reply{
+            top: 20px;
+          }
+        }
+        
+      }
+    }
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    margin-bottom: 20px;
+    font-size: 1em;
+  }
+
+  h2, h3{
+    font-size: 1.6em;
+    font-weight: 500;
+  }
+
+  label{
+    display: block;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  form{
+    width: 100%;
+    display: flex;
+    flex-wrap:wrap;
+    margin: 0;
+
+    input[type=text], textarea{
+      border: 2px solid rgba(0,0,0,0.2);
+      border-color: darken( #FCFAEF, 20%);
+      padding: 10px 15px;
+
+    }
+    input[type=text]:focus, textarea:focus{
+        outline: none;
+        box-shadow: none;
+        border-color: darken( red, 40%);
+    }
+    .form-submit{
+      width: 100%;
+    }
+    input[type=submit]{
+      background: $highlight-blue;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-size: .9em;
+      color: $color-white;
+      border: 1px solid darken( $highlight-blue, 20%);
+      border-radius: 4px;
+    }
+    .comment-form-comment{
+      width: 100%;
+    }
+    textarea{
+      width: 70%;
+      height: 100px;
+      
+      @include device('phone'){
+        width: 100%;
+      }
+    }
+  }
+  p{
+    width: 33.33%;
+
+    @include device('phone'){
+      width: 100%;
+    }
+  }
+  .comment-notes{
+    color: $kinda-grey;
+    font-size: .8em;
+    width: 100%;
+  }
+  
+  li{
+    font-size: 16px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    display: block;
+    
+    a{
+      font-style: normal;
+    }
+    p{
+      width: 100%;
+    }
+
+    li{
+      padding: 10px 0;
+    }
+  }
+  .vcard{
+    width: 100%;
+    position: relative;
+    margin-bottom: 15px;
+    
+    .commentmetadata{
+      font-size: 14px;
+      color: $kinda-grey;
+
+      a{
+        color: inherit;
+        display: block;
+      }
+    }
+    &:after{
+      content: "";
+      display: table;
+      clear: both;
+    }
+    
+    cite{
+      font-style: normal;
+      font-weight: 600;
+      color: $highlight-purple;
+
+      a{
+        color: inherit;
+      }
+    }
+    img{
+      float: left;
+      width: 60px;
+      height: 60px;
+      border-radius: 4px;
+      margin-right: 15px;
+    }
+  }
+
+  .reply{
+    position: absolute;
+    top: 0; right: 0;
+    font-size: 14px;
+
+    @include device('phone'){
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    a{
+      color: $font-color-dark;
+    }
+  }
+
+  .comment-respond{
+    padding-top: 20px;
+  }
+  .comment-awaiting-moderation{
+    margin: 15px 0 10px;
+    background: lighten( $highlight-purple, 20%);
+    font-style: normal;
+    color: $color-white;
+    display: block;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    
+  }
+}

@@ -39,7 +39,7 @@
         margin: 0;
       }
       a{
-        color: rgba(144, 155, 158, 1);
+        color: $kinda-grey;
       }
     }
   }
@@ -47,6 +47,6 @@
   .copyright{
     padding-bottom: 15px;
     font-size: $font-baseline * .7;
-    color: rgba(144, 155, 158, 1);
+    color: $kinda-grey;
   }
 }

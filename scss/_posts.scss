@@ -25,35 +25,54 @@
 .post-header-wrapper {
 
 	.post-title {
-		margin: 0 auto;
 		padding: 2em 0 4em;
-		max-width: 60%;
+		width: 65%;
+		margin-right: auto;
+  	margin-left: auto;
+
+		@include device('phone'){
+			width: 100%;
+			padding-left: 20px;
+			padding-right: 20px;
+		}
 
 		h2 {
-			font-size: 3em;
+			font-size: 2.2em;
+			padding:0;
+
+			@include device('desktop'){ 
+				font-size: 3em; 
+			}
 		}
 		span {
 			display: inline-block;
 			padding-top: 1em;
 			font-family:$font-family-header;
-			color: $font-color-something-light;
+			color: $kinda-grey;
 		}
 
 		.excerpt {
 			margin: 1em 0;
-			color: $font-color-something-light;
+			color: $kinda-grey;
 			font-family:$font-family-header;
 			font-style: italic;
 			display: none;
 		}
 	}
 	.post-image {
-		height: 500px;
 		overflow: hidden;
-		width: 60%;
-		margin: 0 auto;
+		width: 85%;
+		margin-right: auto;
+  	margin-left: auto;
 		position:relative;
 		margin-bottom: 4em;
+		height: 500px;
+
+		
+		@include device('phone'){
+			width: 100%;
+			height: 300px;
+		}
 
 		img {
 			object-fit:contain;
@@ -80,12 +99,22 @@
 }
 
 .post-content {
-	max-width: 60%;
-	margin:0 auto;
+	width: 65%;
+	margin-right: auto;
+	margin-left: auto;
 	word-break: break-word;
 	word-wrap: break-word;
 	font-size: 1.2em;
 	color: rgba(0,0,0,.8);
+
+	
+
+	@include device('phone'){
+		font-size: .8em;
+		width: 100%;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
 
 	.the-post {
 		table {
@@ -123,16 +152,28 @@
 			font-size: ($font-baseline * .8);
 			margin-bottom: ($font-baseline * 1.5);
 		}
+		
+		li{
+			font-size: inherit;
+		}
 
 		p {
 			display: block;
 			margin: 1em 0;
 			clear:both;
+
+			@include device('phone'){
+				font-size: $font-baseline * .9;
+			}
 			
 
 			img {
 				margin: 1em 0;
 				display: block;
+
+				@include device('phone'){
+
+				}
 			}
 		}
 		
@@ -160,7 +201,7 @@
 					img {
 						width: 100%;
 						object-fit:cover;
-                		object-position:0 0;
+        		object-position:0 0;
 					}
 				}
 
@@ -186,13 +227,34 @@
 				margin-right: -2em;
 				margin-left: 2em;
 				padding-bottom: 2em;
+				
+				@include device('phone'){
+					float: none;
+					margin: 0;
+					padding: 1em 0;
+					width: 100%;
+
+				}
+			
+
 			}
 			&.alignleft {
 				float: left;
 				margin-left: -2em;
 				margin-right: 2em;
-				padding-bottom: 2em;
+				padding-bottom: 2em;	
+
+				@include device('phone'){
+					float: none;
+					margin: 0;
+					padding: 1em 0;
+					width: 100%;
+
+				}
+			
 			}
+			
+			
 			
 		}
 
@@ -201,14 +263,15 @@
 			width: 70%;
 			padding: 1em 0;
 			margin: 1em 0;
-
+			max-width: 100%;
+			
 			img {
-				width: 100%;
+				max-width: 100%;
 				object-fit:cover;
 			}
 			.wp-caption-text {
 				margin: 0;
-				color: $font-color-something-light;
+				color: $kinda-grey;
 				font-family:$font-family-header;
 				background:$color-white;
 				font-size: .6em;
@@ -258,7 +321,7 @@
 	  -moz-hyphens: auto;
 	  -webkit-hyphens: auto;
 	  hyphens: auto;
-	  
+
 
 		@include transition(all, .2s);
 		
@@ -320,7 +383,7 @@
 
 		.__meta {
 			font-family:$font-family-header;
-			color: $font-color-dark;
+			color: $kinda-grey;
 			text-transform: uppercase;
 			font-size: .8em;
 		}
