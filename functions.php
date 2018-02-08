@@ -692,16 +692,9 @@ add_filter('comment_reply_link', 'add_comment_author_to_reply_link', 10, 3);
     Theme Options
 \*------------------------------------*/
 
-
-/*
- * Loads the Options Panel
- *
- * If you're loading from a child theme use stylesheet_directory
- * instead of template_directory
+/**
+ * Customizer additions.
  */
-
-define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/options-framework/' );
-require_once dirname( __FILE__ ) . '/options-framework/options-framework.php';
-
+require get_template_directory() . '/inc/customizer.php';
 
 ?>

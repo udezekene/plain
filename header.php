@@ -32,11 +32,7 @@
           ?>
             <img src="<?php echo esc_url( $logo[0] ); ?>" alt="" title="Plain. Logo">
 
-          <?php  } else { ?>
-                
-              echo '<h1>'. get_bloginfo( 'name' ) .'</h1>';
-
-          <?php } ?>
+          <?php  } else { echo '<h1>'. get_bloginfo( 'name' ) .'</h1>'; } ?>
         </a>
       </div>
 

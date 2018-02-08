@@ -1,37 +1,14 @@
-<?php 
-
-  get_header(); 
-
+<?php  get_header(); 
   // Title
-  $welcome_text = of_get_option('welcome_text');
-  $welcome_description = of_get_option('welcome_description');
-  $author_photo = of_get_option('author_photo');
-  $author_name = of_get_option('author_name');
-  $author_description = of_get_option('author_description');
-
-  $sm_twitter = of_get_option('sm_twitter');
-  $sm_facebook = of_get_option('sm_facebook');
-  $sm_instagram = of_get_option('sm_instagram');
-  $sm_github = of_get_option('sm_github');
-  $sm_linked_in = of_get_option('sm_linked_in');
-
-
 ?>
   
   <section class="intro-wrapper wrapper" role="region"  aria-label="Welcome Message">
       <div class="welcome-header">
           <div class="blurp">
               <h1 tabindex="0">
-                
-                <?php if (isset($welcome_text)){
-                    echo $welcome_text;
-                }else{
-                  echo bloginfo('title');
-                }
-                ?>
-
+                <?php echo bloginfo('title'); ?>
               </h1>
-              <p tabindex="0"><?php bloginfo('description'); ?> <?php echo of_get_option( 'welcome_text', 'no entry' ); ?></p>
+              <p tabindex="0"><?php bloginfo('description'); ?></p>
           </div>
       </div>
   
