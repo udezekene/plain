@@ -23,7 +23,7 @@ if (!isset($content_width))
 if (function_exists('add_theme_support'))
 {
     // Add Menu Support
-    add_theme_support('menus');
+    //add_theme_support('menus');
 
     // Add Thumbnail Theme Support
     add_theme_support('post-thumbnails');
@@ -32,70 +32,20 @@ if (function_exists('add_theme_support'))
     add_image_size('small', 120, '', true); // Small Thumbnail
     add_image_size('custom-size', 700, 200, true); // Custom Thumbnail Size call using the_post_thumbnail('custom-size');
 
-    // Add Support for Custom Backgrounds - Uncomment below if you're going to use
-    /*add_theme_support('custom-background', array(
-	'default-color' => 'FFF',
-	'default-image' => get_template_directory_uri() . '/img/bg.jpg'
-    ));*/
-
-    // Add Support for Custom Header - Uncomment below if you're going to use
-    /*add_theme_support('custom-header', array(
-	'default-image'			=> get_template_directory_uri() . '/img/headers/default.jpg',
-	'header-text'			=> false,
-	'default-text-color'		=> '000',
-	'width'				=> 1000,
-	'height'			=> 198,
-	'random-default'		=> false,
-	'wp-head-callback'		=> $wphead_cb,
-	'admin-head-callback'		=> $adminhead_cb,
-	'admin-preview-callback'	=> $adminpreview_cb
-    ));*/
-
     // Enables post and comment RSS feed links to head
     add_theme_support('automatic-feed-links');
 
     // Localisation Support
     load_theme_textdomain('plain', get_template_directory() . '/languages');
 
-    add_theme_support( 'custom-logo', array(
-        'height'      => 200,
-        'width'       => 400,
-        'flex-height' => true,
-        'flex-width'  => true,
-        'header-text' => array( 'site-title', 'site-description' ),
-    ) );
 }
 
 /*------------------------------------*\
 	Functions
 \*------------------------------------*/
 
-// HTML5 Blank navigation
-function plain_nav()
-{
-	wp_nav_menu(
-	array(
-		'theme_location'  => 'header-menu',
-		'menu'            => '',
-		'container'       => 'div',
-		'container_class' => 'menu-{menu slug}-container',
-		'container_id'    => '',
-		'menu_class'      => 'menu',
-		'menu_id'         => '',
-		'echo'            => true,
-		'fallback_cb'     => 'wp_page_menu',
-		'before'          => '',
-		'after'           => '',
-		'link_before'     => '',
-		'link_after'      => '',
-		'items_wrap'      => '<ul>%3$s</ul>',
-		'depth'           => 0,
-		'walker'          => ''
-		)
-	);
-}
 
-// Load HTML5 Blank scripts (header.php)
+// Load Plain Scripts (header.php)
 function plain_header_scripts()
 {
     if ($GLOBALS['pagenow'] != 'wp-login.php' && !is_admin()) {
@@ -107,7 +57,7 @@ function plain_header_scripts()
 }
 
 
-// Load HTML5 Blank styles
+// Load Plain styles
 function plain_styles()
 {
     wp_register_style('reboot', get_template_directory_uri() . '/css/bootstrap-reboot.min', array(), '1.0', 'all');
@@ -115,16 +65,6 @@ function plain_styles()
 
     wp_register_style('plain-style', get_template_directory_uri() . '/css/style.css', array(), '1.0', 'all');
     wp_enqueue_style('plain-style'); // Enqueue it!
-}
-
-// Register HTML5 Blank Navigation
-function register_html5_menu()
-{
-    register_nav_menus(array( // Using array to specify more menus if needed
-        'header-menu' => __('Header Menu', 'plain'), // Main Navigation
-        'sidebar-menu' => __('Sidebar Menu', 'plain'), // Sidebar Navigation
-        'extra-menu' => __('Extra Menu', 'plain') // Extra Navigation if needed (duplicate as many as you need!)
-    ));
 }
 
 // Remove the <div> surrounding the dynamic navigation to cleanup markup
@@ -164,31 +104,6 @@ function add_slug_to_body_class($classes)
     return $classes;
 }
 
-// If Dynamic Sidebar Exists
-if (function_exists('register_sidebar'))
-{
-    // Define Sidebar Widget Area 1
-    register_sidebar(array(
-        'name' => __('Widget Area 1', 'plain'),
-        'description' => __('Description for this widget-area...', 'plain'),
-        'id' => 'widget-area-1',
-        'before_widget' => '<div id="%1$s" class="%2$s">',
-        'after_widget' => '</div>',
-        'before_title' => '<h3>',
-        'after_title' => '</h3>'
-    ));
-
-    // Define Sidebar Widget Area 2
-    register_sidebar(array(
-        'name' => __('Widget Area 2', 'plain'),
-        'description' => __('Description for this widget-area...', 'plain'),
-        'id' => 'widget-area-2',
-        'before_widget' => '<div id="%1$s" class="%2$s">',
-        'after_widget' => '</div>',
-        'before_title' => '<h3>',
-        'after_title' => '</h3>'
-    ));
-}
 
 // Remove wp_head() injected Recent Comment styles
 function my_remove_recent_comments_style()
@@ -366,7 +281,6 @@ function plain_featured_image($size = 'full') {
 add_action('init', 'plain_header_scripts'); // Add Custom Scripts to wp_head
 add_action('get_header', 'enable_threaded_comments'); // Enable Threaded Comments
 add_action('wp_enqueue_scripts', 'plain_styles'); // Add Theme Stylesheet
-add_action('init', 'register_html5_menu'); // Add HTML5 Blank Menu
 add_action('widgets_init', 'my_remove_recent_comments_style'); // Remove inline Recent Comment Styles from wp_head()
 add_action('init', 'html5wp_pagination'); // Add our HTML5 Pagination
 add_action('after_setup_theme', 'add_theme_support'); // Add theme support for customizer
@@ -388,8 +302,6 @@ remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
 // Add Filters
 add_filter('avatar_defaults', 'plaingravatar'); // Custom Gravatar in Settings > Discussion
 add_filter('body_class', 'add_slug_to_body_class'); // Add slug to body class (Starkers build)
-add_filter('widget_text', 'do_shortcode'); // Allow shortcodes in Dynamic Sidebar
-add_filter('widget_text', 'shortcode_unautop'); // Remove <p> tags in Dynamic Sidebars (better!)
 add_filter('wp_nav_menu_args', 'my_wp_nav_menu_args'); // Remove surrounding <div> from WP Navigation
 // add_filter('nav_menu_css_class', 'my_css_attributes_filter', 100, 1); // Remove Navigation <li> injected classes (Commented out by default)
 // add_filter('nav_menu_item_id', 'my_css_attributes_filter', 100, 1); // Remove Navigation <li> injected ID (Commented out by default)
@@ -426,155 +338,155 @@ function plain_get_f_image_url($size = 'thumbnail'){
 
 // Compression
 
-// class WP_HTML_Compression
-// {
-//     // Settings
-//     protected $compress_css = true;
-//     protected $compress_js = true;
-//     protected $info_comment = true;
-//     protected $remove_comments = true;
+class WP_HTML_Compression
+{
+    // Settings
+    protected $compress_css = true;
+    protected $compress_js = true;
+    protected $info_comment = true;
+    protected $remove_comments = true;
 
-//     // Variables
-//     protected $html;
-//     public function __construct($html)
-//     {
-//      if (!empty($html))
-//      {
-//          $this->parseHTML($html);
-//      }
-//     }
-//     public function __toString()
-//     {
-//      return $this->html;
-//     }
-//     protected function bottomComment($raw, $compressed)
-//     {
-//      $raw = strlen($raw);
-//      $compressed = strlen($compressed);
+    // Variables
+    protected $html;
+    public function __construct($html)
+    {
+     if (!empty($html))
+     {
+         $this->parseHTML($html);
+     }
+    }
+    public function __toString()
+    {
+     return $this->html;
+    }
+    protected function bottomComment($raw, $compressed)
+    {
+     $raw = strlen($raw);
+     $compressed = strlen($compressed);
      
-//      $savings = ($raw-$compressed) / $raw * 100;
+     $savings = ($raw-$compressed) / $raw * 100;
      
-//      $savings = round($savings, 2);
+     $savings = round($savings, 2);
      
-//      return '<!--HTML compressed, size saved '.$savings.'%. From '.$raw.' bytes, now '.$compressed.' bytes-->';
-//     }
-//     protected function minifyHTML($html)
-//     {
-//      $pattern = '/<(?<script>script).*?<\/script\s*>|<(?<style>style).*?<\/style\s*>|<!(?<comment>--).*?-->|<(?<tag>[\/\w.:-]*)(?:".*?"|\'.*?\'|[^\'">]+)*>|(?<text>((<[^!\/\w.:-])?[^<]*)+)|/si';
-//      preg_match_all($pattern, $html, $matches, PREG_SET_ORDER);
-//      $overriding = false;
-//      $raw_tag = false;
-//      // Variable reused for output
-//      $html = '';
-//      foreach ($matches as $token)
-//      {
-//          $tag = (isset($token['tag'])) ? strtolower($token['tag']) : null;
+     return '<!--HTML compressed, size saved '.$savings.'%. From '.$raw.' bytes, now '.$compressed.' bytes-->';
+    }
+    protected function minifyHTML($html)
+    {
+     $pattern = '/<(?<script>script).*?<\/script\s*>|<(?<style>style).*?<\/style\s*>|<!(?<comment>--).*?-->|<(?<tag>[\/\w.:-]*)(?:".*?"|\'.*?\'|[^\'">]+)*>|(?<text>((<[^!\/\w.:-])?[^<]*)+)|/si';
+     preg_match_all($pattern, $html, $matches, PREG_SET_ORDER);
+     $overriding = false;
+     $raw_tag = false;
+     // Variable reused for output
+     $html = '';
+     foreach ($matches as $token)
+     {
+         $tag = (isset($token['tag'])) ? strtolower($token['tag']) : null;
          
-//          $content = $token[0];
+         $content = $token[0];
          
-//          if (is_null($tag))
-//          {
-//              if ( !empty($token['script']) )
-//              {
-//                  $strip = $this->compress_js;
-//              }
-//              else if ( !empty($token['style']) )
-//              {
-//                  $strip = $this->compress_css;
-//              }
-//              else if ($content == '<!--wp-html-compression no compression-->')
-//              {
-//                  $overriding = !$overriding;
+         if (is_null($tag))
+         {
+             if ( !empty($token['script']) )
+             {
+                 $strip = $this->compress_js;
+             }
+             else if ( !empty($token['style']) )
+             {
+                 $strip = $this->compress_css;
+             }
+             else if ($content == '<!--wp-html-compression no compression-->')
+             {
+                 $overriding = !$overriding;
                  
-//                  // Don't print the comment
-//                  continue;
-//              }
-//              else if ($this->remove_comments)
-//              {
-//                  if (!$overriding && $raw_tag != 'textarea')
-//                  {
-//                      // Remove any HTML comments, except MSIE conditional comments
-//                      $content = preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $content);
-//                  }
-//              }
-//          }
-//          else
-//          {
-//              if ($tag == 'pre' || $tag == 'textarea')
-//              {
-//                  $raw_tag = $tag;
-//              }
-//              else if ($tag == '/pre' || $tag == '/textarea')
-//              {
-//                  $raw_tag = false;
-//              }
-//              else
-//              {
-//                  if ($raw_tag || $overriding)
-//                  {
-//                      $strip = false;
-//                  }
-//                  else
-//                  {
-//                      $strip = true;
+                 // Don't print the comment
+                 continue;
+             }
+             else if ($this->remove_comments)
+             {
+                 if (!$overriding && $raw_tag != 'textarea')
+                 {
+                     // Remove any HTML comments, except MSIE conditional comments
+                     $content = preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $content);
+                 }
+             }
+         }
+         else
+         {
+             if ($tag == 'pre' || $tag == 'textarea')
+             {
+                 $raw_tag = $tag;
+             }
+             else if ($tag == '/pre' || $tag == '/textarea')
+             {
+                 $raw_tag = false;
+             }
+             else
+             {
+                 if ($raw_tag || $overriding)
+                 {
+                     $strip = false;
+                 }
+                 else
+                 {
+                     $strip = true;
                      
-//                      // Remove any empty attributes, except:
-//                      // action, alt, content, src
-//                      $content = preg_replace('/(\s+)(\w++(?<!\baction|\balt|\bcontent|\bsrc)="")/', '$1', $content);
+                     // Remove any empty attributes, except:
+                     // action, alt, content, src
+                     $content = preg_replace('/(\s+)(\w++(?<!\baction|\balt|\bcontent|\bsrc)="")/', '$1', $content);
                      
-//                      // Remove any space before the end of self-closing XHTML tags
-//                      // JavaScript excluded
-//                      $content = str_replace(' />', '/>', $content);
-//                  }
-//              }
-//          }
+                     // Remove any space before the end of self-closing XHTML tags
+                     // JavaScript excluded
+                     $content = str_replace(' />', '/>', $content);
+                 }
+             }
+         }
          
-//          if ($strip)
-//          {
-//              $content = $this->removeWhiteSpace($content);
-//          }
+         if ($strip)
+         {
+             $content = $this->removeWhiteSpace($content);
+         }
          
-//          $html .= $content;
-//      }
+         $html .= $content;
+     }
      
-//      return $html;
-//     }
+     return $html;
+    }
      
-//     public function parseHTML($html)
-//     {
-//      $this->html = $this->minifyHTML($html);
+    public function parseHTML($html)
+    {
+     $this->html = $this->minifyHTML($html);
      
-//      if ($this->info_comment)
-//      {
-//          $this->html .= "\n" . $this->bottomComment($html, $this->html);
-//      }
-//     }
+     if ($this->info_comment)
+     {
+         $this->html .= "\n" . $this->bottomComment($html, $this->html);
+     }
+    }
     
-//     protected function removeWhiteSpace($str)
-//     {
-//      $str = str_replace("\t", ' ', $str);
-//      $str = str_replace("\n",  '', $str);
-//      $str = str_replace("\r",  '', $str);
+    protected function removeWhiteSpace($str)
+    {
+     $str = str_replace("\t", ' ', $str);
+     $str = str_replace("\n",  '', $str);
+     $str = str_replace("\r",  '', $str);
      
-//      while (stristr($str, '  '))
-//      {
-//          $str = str_replace('  ', ' ', $str);
-//      }
+     while (stristr($str, '  '))
+     {
+         $str = str_replace('  ', ' ', $str);
+     }
      
-//      return $str;
-//     }
-// }
+     return $str;
+    }
+}
 
-// function wp_html_compression_finish($html)
-// {
-//     return new WP_HTML_Compression($html);
-// }
+function wp_html_compression_finish($html)
+{
+    return new WP_HTML_Compression($html);
+}
 
-// function wp_html_compression_start()
-// {
-//     ob_start('wp_html_compression_finish');
-// }
-// add_action('get_header', 'wp_html_compression_start');
+function wp_html_compression_start()
+{
+    ob_start('wp_html_compression_finish');
+}
+add_action('get_header', 'wp_html_compression_start');
 
        
 //** DEFER THE LOADING OF SOME JS FILES SO AS TO IMPROVE LOAD SPEEED */    
@@ -680,21 +592,10 @@ add_filter('comment_reply_link', 'add_comment_author_to_reply_link', 10, 3);
 \*------------------------------------*/
 
 
-
-
-/*------------------------------------*\
-    These include the functions that allow users manage their Plain theme.
-
-    DO NOT EDIT BELOW THIS PART - OF COURSE UNLESS YOU KNOW WHAT YOU ARE DOING.
-
-    If you have any doubt; CLOSE THIS PAGE - RIGHT NOW.
-
-    Theme Options
-\*------------------------------------*/
-
 /**
- * Customizer additions.
+ * Include the Customizer.
  */
+
 require get_template_directory() . '/inc/customizer.php';
 
 ?>

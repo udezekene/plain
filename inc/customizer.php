@@ -9,205 +9,210 @@
  *
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
  */
+
 function plain_customize_register( $wp_customize ) {
-    $wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
-    $wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
-    $wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
-
-    /**
-     * Custom colors.
-     */
-    $wp_customize->add_setting( 'colorscheme', array(
-        'default'           => 'light',
-        'transport'         => 'postMessage',
-        'sanitize_callback' => 'twentyseventeen_sanitize_colorscheme',
-    ) );
-
-    $wp_customize->add_setting( 'colorscheme_hue', array(
-        'default'           => 250,
-        'transport'         => 'postMessage',
-        'sanitize_callback' => 'absint', // The hue is stored as a positive integer.
-    ) );
-
-    $wp_customize->add_control( 'colorscheme', array(
-        'type'    => 'radio',
-        'label'    => __( 'Color Scheme', 'twentyseventeen' ),
-        'choices'  => array(
-            'light'  => __( 'Light', 'twentyseventeen' ),
-            'dark'   => __( 'Dark', 'twentyseventeen' ),
-            'custom' => __( 'Custom', 'twentyseventeen' ),
-        ),
-        'section'  => 'colors',
-        'priority' => 5,
-    ) );
-
-    $wp_customize->add_control( 'colorscheme_hue', array(
-        'type'    => 'range',
-        'input_attrs' => array(
-            'min' => 0,
-            'max' => 359,
-            'step' => 1,
-        ),
-        'section'  => 'colors',
-        'priority' => 6,
-        'description' => 'Temporary hue slider will be replaced with a visual hue picker that is only shown when a custom scheme is selected', // temporary, intentionally untranslated.
-        // @todo change this to a visual hue picker control, ideally extending the color control and leveraging iris by adding a `hue` mode in core.
-        // See https://core.trac.wordpress.org/ticket/38263
-        // @todo only show this control when the colorscheme is custom.
-    ) );
-
-    /**
-     * Add the Theme Options section.
-     */
-
+    
     $wp_customize->add_panel( 'options_panel', array(
-        'title'       => __( 'Theme Options', 'twentyseventeen' ),
-        'description' => __( 'Configure your theme settings', 'twentyseventeen' ),
+        'title'       => __( 'Plain: Theme Options', 'plain' ),
+        'description' => __( 'Configure your theme settings', 'plain' ),
     ) );
 
     // Page Options.
-    $wp_customize->add_section( 'page_options', array(
-        'title'           => __( 'Single Page Layout', 'twentyseventeen' ),
-        'active_callback' => 'twentyseventeen_is_page',
+    $wp_customize->add_section( 'welcome_header_options', array(
+        'title'           => __( 'Welcome Header', 'plain' ),
         'panel'           => 'options_panel',
     ) );
 
-    $wp_customize->add_setting( 'page_options', array(
+    $wp_customize->add_setting('plain_theme_options[site_logo]', array(
+        'default'           => '',
+        'capability'        => 'edit_theme_options',
+        'type'           => 'option',
+ 
+    ));
+ 
+    $wp_customize->add_control( new WP_Customize_Image_Control($wp_customize, 'site_logo', array(
+        'label'    => __('Website Logo', 'plain'),
+        'section'  => 'welcome_header_options',
+        'description' => 'Upload the logo for the website. Ideally something in the 4:2 ratio',
+        'settings' => 'plain_theme_options[site_logo]',
+    )));
+
+    $wp_customize->add_setting('welcome_title', array(
+      'default'         => '',
+      'capability'        => 'edit_theme_options',
+    ) );
+
+    $wp_customize->add_control( 'welcome_title', array(
+        'label'   => 'Welcome Title',
+        'section' => 'welcome_header_options',
+        'description' => 'This is the welcome description E.g: Welcome to Plain',
+        'type'    => 'text',
+    ) );
+
+    $wp_customize->add_setting('welcome_description', array(
+      'default'         => '',
+      'capability'        => 'edit_theme_options',
+      'sanitize_callback' => 'wp_filter_nohtml_kses', //removes all HTML from content
+
+    ) );
+
+    $wp_customize->add_control( 'welcome_description', array(
+        'label'   => 'Welcome Description',
+        'section' => 'welcome_header_options',
+        'description' => 'This is the welcome text in the big E.g: Plain is a simple, yet bold WordPress theme that will help you kickstart your (hopefully) awesome blog. It’s absolutely FREE.',
+        'type'    => 'textarea',
+    ) );
+    
+    $wp_customize->add_setting('site_title', array(
+      'default'         => 'Welcome to Plain',
+      'capability'        => 'edit_theme_options',
+    ) );
+
+    $wp_customize->add_section( 'socialmedia_options', array(
+        'title'           => __( 'Social Media Links', 'plain' ),
+        'panel'           => 'options_panel',
+    ) );
+
+    $wp_customize->add_setting( 'socialmedia_options', array(
         'default'           => 'two-column',
-        'sanitize_callback' => 'twentyseventeen_sanitize_layout',
+        'capability'        => 'edit_theme_options',
+        'sanitize_callback' => 'plain_sanitize_layout',
         'transport'         => 'postMessage',
     ) );
 
-    $wp_customize->add_control( 'page_options', array(
-        'label'       => __( 'Page Layout', 'twentyseventeen' ),
-        'section'     => 'page_options',
-        'type'        => 'radio',
-        'description' => __( 'When no sidebar widgets are assigned, you can opt to display all pages with a one column or two column layout. When the two column layout is assigned, the page title is in one column and content is in the other.', 'twentyseventeen' ),
-        'choices'     => array(
-            'one-column' => __( 'One Column', 'twentyseventeen' ),
-            'two-column' => __( 'Two Column', 'twentyseventeen' ),
-        ),
+    $wp_customize->add_setting('settings_sm_facebook', array(
+      'default'         => '',
+      'capability'        => 'edit_theme_options',
+      'sanitize_callback' => 'esc_url_raw', //cleans URL from all invalid characters
+
     ) );
 
-    // Panel 1.
-    $wp_customize->add_section( 'panel_1', array(
-        'title'           => __( 'Panel 1', 'twentyseventeen' ),
-        'active_callback' => 'is_front_page',
+    $wp_customize->add_control( 'settings_sm_facebook', array(
+        'label'   => 'Link to your Facebook Page or Profile',
+        'section' => 'socialmedia_options',
+        'description' => 'Full link to your facebook page. Eg: https://www.facebook.com/xxxxxxxxxx',
+        'type'    => 'url',
+    ) );
+
+    $wp_customize->add_setting('settings_sm_twitter', array(
+      'default'         => '',
+      'capability'        => 'edit_theme_options',
+      'sanitize_callback' => 'esc_url_raw', //cleans URL from all invalid characters
+
+    ) );
+
+    $wp_customize->add_control( 'settings_sm_twitter', array(
+        'label'   => 'Link to your Twitter profile',
+        'section' => 'socialmedia_options',
+        'description' => 'Full link to your Twitter profile. Eg: https://www.twitter.com/xxxxxxxxxx',
+        'type'    => 'url',
+    ) );
+
+    $wp_customize->add_setting('settings_sm_instagram', array(
+      'default'         => '',
+      'capability'        => 'edit_theme_options',
+      'sanitize_callback' => 'esc_url_raw', //cleans URL from all invalid characters
+
+    ) );
+
+    $wp_customize->add_control( 'settings_sm_instagram', array(
+        'label'   => 'Link to your Instagram profile',
+        'section' => 'socialmedia_options',
+        'description' => 'Full link to your Instagram profile. Eg: https://www.twitter.com/xxxxxxxxxx',
+        'type'    => 'url',
+    ) );
+
+    $wp_customize->add_setting('settings_sm_linkedin', array(
+      'default'         => '',
+      'capability'        => 'edit_theme_options',
+      'sanitize_callback' => 'esc_url_raw', //cleans URL from all invalid characters
+
+    ) );
+
+    $wp_customize->add_control( 'settings_sm_linkedin', array(
+        'label'   => 'Link to your LinkedIn profile',
+        'section' => 'socialmedia_options',
+        'description' => 'Full link to your LinkedIn profile. Eg: https://www.linkedin.com/xxxxxxxxxx',
+        'type'    => 'url',
+    ) );
+
+    $wp_customize->add_setting('settings_sm_github', array(
+      'default'         => '',
+      'capability'        => 'edit_theme_options',
+      'sanitize_callback' => 'esc_url_raw', //cleans URL from all invalid characters
+
+    ) );
+
+    $wp_customize->add_control( 'settings_sm_github', array(
+        'label'   => 'Link to your Github profile',
+        'section' => 'socialmedia_options',
+        'description' => 'Full link to your Github profile. Eg: https://www.linkedin.com/xxxxxxxxxx',
+        'type'    => 'url',
+    ) );
+
+
+    $wp_customize->add_section( 'footer_options', array(
+        'title'           => __( 'Footer Options', 'plain' ),
         'panel'           => 'options_panel',
-        'description'     => __( 'Add an image to your panel by setting a featured image in the page editor. If you don&rsquo;t select a page, this panel will not be displayed.', 'twentyseventeen' ),
     ) );
 
-    $wp_customize->add_setting( 'panel_1', array(
-        'default'           => false,
-        'sanitize_callback' => 'absint',
+    $wp_customize->add_setting('plain_theme_options[settings_author_avatar]', array(
+        'default'           => '',
+        'capability'        => 'edit_theme_options',
+        'type'           => 'option',
+ 
+    ));
+ 
+    $wp_customize->add_control( new WP_Customize_Image_Control($wp_customize, 'settings_author_avatar', array(
+        'label'    => __('Author Avatar', 'plain'),
+        'section'  => 'footer_options',
+        'settings' => 'plain_theme_options[settings_author_avatar]',
+    )));
+
+    // Name of Author
+    $wp_customize->add_setting('settings_author_name', array(
+      'default'         => '',
+      'capability'        => 'edit_theme_options',
     ) );
 
-    $wp_customize->add_control( 'panel_1', array(
-        'label'   => __( 'Panel Content', 'twentyseventeen' ),
-        'section' => 'panel_1',
-        'type'    => 'dropdown-pages',
+    $wp_customize->add_control( 'settings_author_name', array(
+        'label'   => 'Name of Author/Site-owner',
+        'section' => 'footer_options',
+        'description' => 'Name of the Author',
+        'type'    => 'text',
     ) );
 
-    // Panel 2.
-    $wp_customize->add_section( 'panel_2', array(
-        'title'           => __( 'Panel 2', 'twentyseventeen' ),
-        'active_callback' => 'is_front_page',
-        'panel'           => 'options_panel',
-        'description'     => __( 'Add an image to your panel by setting a featured image in the page editor. If you don&rsquo;t select a page, this panel will not be displayed.', 'twentyseventeen' ),
+    // Short Bio of Author
+    $wp_customize->add_setting('settings_author_bio', array(
+      'default'         => '',
+      'capability'        => 'edit_theme_options',
+      'sanitize_callback' => 'wp_filter_nohtml_kses', //removes all HTML from content
     ) );
 
-    $wp_customize->add_setting( 'panel_2', array(
-        'default'           => false,
-        'sanitize_callback' => 'absint',
+    $wp_customize->add_control( 'settings_author_bio', array(
+        'label'   => 'Author Bio',
+        'section' => 'footer_options',
+        'description' => 'About the author. Keep',
+        'type'    => 'textarea',
     ) );
 
-    $wp_customize->add_control( 'panel_2', array(
-        'label'   => __( 'Panel Content', 'twentyseventeen' ),
-        'section' => 'panel_2',
-        'type'    => 'dropdown-pages',
-    ) );
 
-    // Panel 3.
-    $wp_customize->add_section( 'panel_3', array(
-        'title'           => __( 'Panel 3', 'twentyseventeen' ),
-        'active_callback' => 'is_front_page',
-        'panel'           => 'options_panel',
-        'description'     => __( 'Add an image to your panel by setting a featured image in the page editor. If you don&rsquo;t select a page, this panel will not be displayed.', 'twentyseventeen' ),
-    ) );
 
-    $wp_customize->add_setting( 'panel_3', array(
-        'default'           => false,
-        'sanitize_callback' => 'absint',
-    ) );
-
-    $wp_customize->add_control( 'panel_3', array(
-        'label'   => __( 'Panel Content', 'twentyseventeen' ),
-        'section' => 'panel_3',
-        'type'    => 'dropdown-pages',
-    ) );
-
-    // Panel 4.
-    $wp_customize->add_section( 'panel_4', array(
-        'title'           => __( 'Panel 4', 'twentyseventeen' ),
-        'active_callback' => 'is_front_page',
-        'panel'           => 'options_panel',
-        'description'     => __( 'Add an image to your panel by setting a featured image in the page editor. If you don&rsquo;t select a page, this panel will not be displayed.', 'twentyseventeen' ),
-    ) );
-
-    $wp_customize->add_setting( 'panel_4', array(
-        'default'           => false,
-        'sanitize_callback' => 'absint',
-    ) );
-
-    $wp_customize->add_control( 'panel_4', array(
-        'label'   => __( 'Panel Content', 'twentyseventeen' ),
-        'section' => 'panel_4',
-        'type'    => 'dropdown-pages',
-    ) );
 }
 add_action( 'customize_register', 'plain_customize_register' );
-
-/**
- * Sanitize a radio button.
- */
-function twentyseventeen_sanitize_layout( $input ) {
-    $valid = array(
-        'one-column' => __( 'One Column', 'twentyseventeen' ),
-        'two-column' => __( 'Two Column', 'twentyseventeen' ),
-    );
-
-    if ( array_key_exists( $input, $valid ) ) {
-        return $input;
-    }
-
-    return '';
-}
-
-/**
- * Sanitize the colorscheme.
- */
-function twentyseventeen_sanitize_colorscheme( $input ) {
-    $valid = array( 'light', 'dark', 'custom' );
-
-    if ( in_array( $input, $valid ) ) {
-        return $input;
-    }
-
-    return 'light';
-}
 
 /**
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
  */
 function plain_customize_preview_js() {
-    wp_enqueue_script( 'twentyseventeen-customizer', get_theme_file_uri( '/js/customizer.js' ), array( 'customize-preview' ), '1.0', true );
+    wp_enqueue_script( 'plain-customizer', get_theme_file_uri( '/js/customizer.js' ), array( 'customize-preview' ), '1.0', true );
 }
 add_action( 'customize_preview_init', 'plain_customize_preview_js' );
 
 /**
  * Some extra JavaScript to improve the user experience in the Customizer for this theme.
  */
-function twentyseventeen_panels_js() {
-    wp_enqueue_script( 'twentyseventeen-panel-customizer', get_theme_file_uri( '/js/panel-customizer.js' ), array(), '1.0', true );
+function plain_panels_js() {
+    wp_enqueue_script( 'plain-panel-customizer', get_theme_file_uri( '/js/panel-customizer.js' ), array(), '1.0', true );
 }
-add_action( 'customize_controls_enqueue_scripts', 'twentyseventeen_panels_js' );
+add_action( 'customize_controls_enqueue_scripts', 'plain_panels_js' );

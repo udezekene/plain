@@ -1,14 +1,10 @@
-
     <footer role="contentinfo">
         <div class="about-author-wrapper">
             
-            
-            
-            <?php if ( of_get_option( 'author_photo' ) ) { ?>
-                <div class="author-photo">
-                    <img src="<?php echo of_get_option( 'author_photo' ); ?>" title="" />
-                </div>
-            <?php } ?>
+            <div class="author-photo">
+                <img src="" title="" />
+            </div>
+        
             <div class="author-bio">
                 <h3> Hailey Walters</h3>
                 I’m up to something. The other day the grass was brown, now it’s green because I ain’t give up. Never surrender.
@@ -26,17 +22,17 @@
         </div>
     </footer>
 
-		<?php wp_footer(); ?>
+	<?php wp_footer(); ?>
 
-		<!-- analytics -->
-		<script>
-		(function(f,i,r,e,s,h,l){i['GoogleAnalyticsObject']=s;f[s]=f[s]||function(){
-		(f[s].q=f[s].q||[]).push(arguments)},f[s].l=1*new Date();h=i.createElement(r),
-		l=i.getElementsByTagName(r)[0];h.async=1;h.src=e;l.parentNode.insertBefore(h,l)
-		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		ga('create', 'UA-XXXXXXXX-XX', 'yourdomain.com');
-		ga('send', 'pageview');
-		</script>
+	<!-- analytics -->
+	<script>
+	(function(f,i,r,e,s,h,l){i['GoogleAnalyticsObject']=s;f[s]=f[s]||function(){
+	(f[s].q=f[s].q||[]).push(arguments)},f[s].l=1*new Date();h=i.createElement(r),
+	l=i.getElementsByTagName(r)[0];h.async=1;h.src=e;l.parentNode.insertBefore(h,l)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-XXXXXXXX-XX', 'yourdomain.com');
+	ga('send', 'pageview');
+	</script>
 
 	</body>
 </html>
