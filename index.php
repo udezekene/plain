@@ -33,10 +33,7 @@
       <?php get_template_part('loop'); ?>      
     </div>
 
-    <div class="load-more">
-        <a href="" title="Load more posts" class="button">Load More Posts</a>
-        <?php get_template_part('pagination'); ?>
-    </div>
+    <?php get_template_part('pagination'); ?>
   </section>
 
 <?php get_footer(); ?>
