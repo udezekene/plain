@@ -22,29 +22,30 @@
   
       <div class="logo-wrapper">
         <a href="<?php echo get_site_url(); ?>">
-          <?php
           
-            $custom_logo_id = get_theme_mod( 'custom_logo' );
-            $logo = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+          <?php
+              
+              $default_logo =  get_template_directory_uri() . '/img/logo.png';
 
-            if ( has_custom_logo() ) { 
-
+              if (!(get_theme_mod('plain_theme_options[blog_logo]')) == null){
+              $blog_logo = get_theme_mod('plain_theme_options[blog_logo]', true);
+              $logo = wp_get_attachment_image_src( $blog_logo, 'full' );
           ?>
-            <img src="<?php echo esc_url( $logo[0] ); ?>" alt="" title="Plain. Logo">
+          <img src="<?php echo esc_url( $logo[0] ); ?>" alt="<?php echo get_bloginfo('name'); ?>" title="<?php echo get_bloginfo('name'); ?>">
 
-          <?php  } else { echo '<h1>'. get_bloginfo( 'name' ) .'</h1>'; } ?>
+          <?php  } else { ?>
+          
+            <img src="<?php echo $default_logo; ?>" alt="<?php echo get_bloginfo('name'); ?>" title="<?php echo get_bloginfo('name'); ?>">
+
+          <?php } ?>
+
         </a>
       </div>
 
       <div class="social-menu-wrapper">
         
         <ul class="social-menu">
-            <li><a href="" aria-hidden="true" class="facebook" target="_blank" title="Open Facebook Link"><i class="fab fa-facebook-square"></i></a></li>
-            <li><a href="" aria-hidden="true" class="twitter" target="_blank" title="Open Twitter Link"><i class="fab fa-twitter"></i></a></li>
-            <li><a href="" aria-hidden="true" class="instagram" target="_blank" title="Open Github Link"><i class="fab fa-instagram"></i></a></li>
-            <li><a href="" aria-hidden="true" class="linkedin" target="_blank" title="Open Linkedin Link"><i class="fab fa-linkedin"></i></a></li>
-            <li><a href="" aria-hidden="true" class="github" target="_blank" title="Open Github Link"><i class="fab fa-github-square"></i></a></li>
-
+            <?php get_template_part('inc/social-media'); ?>
         </ul>
     
       </div>

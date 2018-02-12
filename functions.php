@@ -591,7 +591,6 @@ add_filter('comment_reply_link', 'add_comment_author_to_reply_link', 10, 3);
 	ShortCode Functions
 \*------------------------------------*/
 
-
 /**
  * Include the Customizer.
  */

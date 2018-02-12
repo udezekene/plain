@@ -1,26 +1,10 @@
-    <footer role="contentinfo">
-        <div class="about-author-wrapper">
-            
-            <div class="author-photo">
-                <img src="" title="" />
-            </div>
-        
-            <div class="author-bio">
-                <h3> Hailey Walters</h3>
-                I’m up to something. The other day the grass was brown, now it’s green because I ain’t give up. Never surrender.
-            </div>
-            <ul class="social-menu">
-                <li><a href="" aria-hidden="true" class="facebook" target="_blank" title="Open Facebook Link"><i class="fab fa-facebook-square"></i></a></li>
-                <li><a href="" aria-hidden="true" class="twitter" target="_blank" title="Open Twitter Link"><i class="fab fa-twitter"></i></a></li>
-                <li><a href="" aria-hidden="true" class="instagram" target="_blank" title="Open Github Link"><i class="fab fa-instagram"></i></a></li>
-                <li><a href="" aria-hidden="true" class="linkedin" target="_blank" title="Open Linkedin Link"><i class="fab fa-linkedin"></i></a></li>
-                <li><a href="" aria-hidden="true" class="github" target="_blank" title="Open Github Link"><i class="fab fa-github-square"></i></a></li>
+  <!-- If the author's name has been set, then we can show the footer stuff -->
 
-            </ul>
-
-            <div class="copyright">© <?php echo date('Y'); ?> Hailey Walters.</div>
-        </div>
-    </footer>
+  <?php 
+      if (!(get_theme_mod('settings_author_name')) == null){ 
+        get_template_part('inc/about-author');
+      }
+  ?>
 
 	<?php wp_footer(); ?>
 

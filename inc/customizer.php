@@ -26,6 +26,7 @@ function plain_customize_register( $wp_customize ) {
     $wp_customize->add_setting('plain_theme_options[site_logo]', array(
         'default'           => '',
         'capability'        => 'edit_theme_options',
+        'transport'   => 'postMessage',
         'type'           => 'option',
  
     ));
@@ -40,6 +41,7 @@ function plain_customize_register( $wp_customize ) {
     $wp_customize->add_setting('welcome_title', array(
       'default'         => '',
       'capability'        => 'edit_theme_options',
+      'transport'   => 'postMessage',
     ) );
 
     $wp_customize->add_control( 'welcome_title', array(
@@ -52,6 +54,8 @@ function plain_customize_register( $wp_customize ) {
     $wp_customize->add_setting('welcome_description', array(
       'default'         => '',
       'capability'        => 'edit_theme_options',
+
+        'transport'   => 'postMessage',
       'sanitize_callback' => 'wp_filter_nohtml_kses', //removes all HTML from content
 
     ) );
@@ -66,6 +70,7 @@ function plain_customize_register( $wp_customize ) {
     $wp_customize->add_setting('site_title', array(
       'default'         => 'Welcome to Plain',
       'capability'        => 'edit_theme_options',
+      'transport'   => 'postMessage',
     ) );
 
     $wp_customize->add_section( 'socialmedia_options', array(
@@ -76,6 +81,7 @@ function plain_customize_register( $wp_customize ) {
     $wp_customize->add_setting( 'socialmedia_options', array(
         'default'           => 'two-column',
         'capability'        => 'edit_theme_options',
+        'transport'   => 'postMessage',
         'sanitize_callback' => 'plain_sanitize_layout',
         'transport'         => 'postMessage',
     ) );
@@ -83,6 +89,7 @@ function plain_customize_register( $wp_customize ) {
     $wp_customize->add_setting('settings_sm_facebook', array(
       'default'         => '',
       'capability'        => 'edit_theme_options',
+      'transport'   => 'postMessage',
       'sanitize_callback' => 'esc_url_raw', //cleans URL from all invalid characters
 
     ) );
@@ -97,6 +104,7 @@ function plain_customize_register( $wp_customize ) {
     $wp_customize->add_setting('settings_sm_twitter', array(
       'default'         => '',
       'capability'        => 'edit_theme_options',
+      'transport'   => 'postMessage',
       'sanitize_callback' => 'esc_url_raw', //cleans URL from all invalid characters
 
     ) );
@@ -111,6 +119,7 @@ function plain_customize_register( $wp_customize ) {
     $wp_customize->add_setting('settings_sm_instagram', array(
       'default'         => '',
       'capability'        => 'edit_theme_options',
+      'transport'   => 'postMessage',
       'sanitize_callback' => 'esc_url_raw', //cleans URL from all invalid characters
 
     ) );
@@ -125,6 +134,7 @@ function plain_customize_register( $wp_customize ) {
     $wp_customize->add_setting('settings_sm_linkedin', array(
       'default'         => '',
       'capability'        => 'edit_theme_options',
+      'transport'   => 'postMessage',
       'sanitize_callback' => 'esc_url_raw', //cleans URL from all invalid characters
 
     ) );
@@ -139,6 +149,7 @@ function plain_customize_register( $wp_customize ) {
     $wp_customize->add_setting('settings_sm_github', array(
       'default'         => '',
       'capability'        => 'edit_theme_options',
+      'transport'   => 'postMessage',
       'sanitize_callback' => 'esc_url_raw', //cleans URL from all invalid characters
 
     ) );
@@ -159,6 +170,7 @@ function plain_customize_register( $wp_customize ) {
     $wp_customize->add_setting('plain_theme_options[settings_author_avatar]', array(
         'default'           => '',
         'capability'        => 'edit_theme_options',
+        'transport'   => 'postMessage',
         'type'           => 'option',
  
     ));
@@ -173,6 +185,7 @@ function plain_customize_register( $wp_customize ) {
     $wp_customize->add_setting('settings_author_name', array(
       'default'         => '',
       'capability'        => 'edit_theme_options',
+      'transport'   => 'postMessage',
     ) );
 
     $wp_customize->add_control( 'settings_author_name', array(
@@ -186,6 +199,7 @@ function plain_customize_register( $wp_customize ) {
     $wp_customize->add_setting('settings_author_bio', array(
       'default'         => '',
       'capability'        => 'edit_theme_options',
+      'transport'   => 'postMessage',
       'sanitize_callback' => 'wp_filter_nohtml_kses', //removes all HTML from content
     ) );
 
