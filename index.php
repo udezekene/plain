@@ -30,10 +30,30 @@
 
   <section class="post-list wrapper" role="main" aria-label="Main Content">
     <div class="post-list-wrapper">
-      <?php get_template_part('loop'); ?>      
-    </div>
+      <?php if (have_posts()): 
+          
+          while (have_posts()) : the_post(); 
+          
+            get_template_part( 'loop');            
+          
+          endwhile;
+            if ($wp_query->max_num_pages > 1): 
 
-    <?php get_template_part('pagination'); ?>
+              get_template_part( 'pagination');
+
+            endif;
+
+        else:
+
+      endif;
+      
+      wp_reset_query();
+
+    ?>
+  </div>
+
+    
+
   </section>
 
 <?php get_footer(); ?>
