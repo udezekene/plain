@@ -8,8 +8,6 @@
                 
                 <h2><?php the_title(); ?></h1>
                 <span title="date"><?php the_time('F j, Y'); ?></span>
-
-                <div class="excerpt">Plain is a simple, yet bold WordPress theme that will help you kickstart your (hopefully) awesome blog. It’s absolutely free.</div>
             </div>    
         
         

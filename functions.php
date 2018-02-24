@@ -597,66 +597,46 @@ add_filter('comment_reply_link', 'add_comment_author_to_reply_link', 10, 3);
 
 require get_template_directory() . '/inc/customizer.php';
 
-/**
- * AJAX Post Loading
- */
 
-function misha_loadmore_ajax_handler(){
-    // prepare our arguments for the query
-    $args = json_decode( stripslashes( $_POST['query'] ), true );
-    $args['paged'] = $_POST['page'] + 1; // we need next page to be loaded
-    $args['post_status'] = 'publish';
- 
-    // it is always better to use WP_Query but not here
-    query_posts( $args );
-    
+// Pagination
 
-    if( have_posts() ) :
- 
-        // run the loop
-        while( have_posts() ): the_post();
- 
-            // look into your theme code how the posts are inserted, but you can use your own HTML of course
-            // do you remember? - my example is adapted for Twenty Seventeen theme
-            get_template_part( 'loop');
-            // for the test purposes comment the line above and uncomment the below one
-            // the_title();
-            
- 
-        endwhile;
- 
-    endif;
-    die; // here we exit the script and even no wp_reset_query() required!
-}
- 
- 
- 
-add_action('wp_ajax_loadmore', 'misha_loadmore_ajax_handler'); // wp_ajax_{action}
-add_action('wp_ajax_nopriv_loadmore', 'misha_loadmore_ajax_handler'); // wp_ajax_nopriv_{action}
+function plain_paging_nav() {
+    // Don't print empty markup if there's only one page.
+    if ( $GLOBALS['wp_query']->max_num_pages < 2 ) {
+        return;
+    }
 
-function misha_my_load_more_scripts() {
+    $paged        = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
+    $pagenum_link = html_entity_decode( get_pagenum_link() );
+    $query_args   = array();
+    $url_parts    = explode( '?', $pagenum_link );
 
-    global $wp_query; 
- 
-    // register our main script but do not enqueue it yet
-    wp_register_script( 'my_loadmore',  get_template_directory_uri() . '/js/loadmore.js', array('jquery') );
- 
-    // now the most interesting part
-    // we have to pass parameters to myloadmore.js script but we can get the parameters values only in PHP
-    // you can define variables directly in your HTML but I decided that the most proper way is wp_localize_script()
-    var_dump($wp_query);
+    if ( isset( $url_parts[1] ) ) {
+        wp_parse_str( $url_parts[1], $query_args );
+    }
 
-    wp_localize_script( 'my_loadmore', 'misha_loadmore_params', array(
-        'ajaxurl' => site_url() . '/wp-admin/admin-ajax.php', // WordPress AJAX
-        'posts' => json_encode( $wp_query->query_vars ), // everything about your loop is here
-        'current_page' => get_query_var( 'paged' ) ? get_query_var('paged') : 1,
-        'max_page' => $wp_query->max_num_pages
+    $pagenum_link = remove_query_arg( array_keys( $query_args ), $pagenum_link );
+    $pagenum_link = trailingslashit( $pagenum_link ) . '%_%';
+
+    $format  = $GLOBALS['wp_rewrite']->using_index_permalinks() && ! strpos( $pagenum_link, 'index.php' ) ? 'index.php/' : '';
+    $format .= $GLOBALS['wp_rewrite']->using_permalinks() ? user_trailingslashit( 'page/%#%', 'paged' ) : '?paged=%#%';
+
+    // Set up paginated links.
+    $links = paginate_links( array(
+        'base'     => $pagenum_link,
+        'format'   => $format,
+        'total'    => $GLOBALS['wp_query']->max_num_pages,
+        'current'  => $paged,
+        'mid_size' => 3,
+        'add_args' => array_map( 'urlencode', $query_args ),
+        'prev_text' => __( '&larr; Previous', 'plain' ),
+        'next_text' => __( 'Next &rarr;', 'plain' ),
+        'type'      => 'list',
     ) );
 
-    wp_enqueue_script( 'my_loadmore' );
-
+    return $links;
 }
- 
-add_action( 'wp_enqueue_scripts', 'misha_my_load_more_scripts' );
+
+
 
 ?>

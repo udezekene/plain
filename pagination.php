@@ -1,7 +1,14 @@
 <!-- pagination -->
+<?php 
 
-<div class="load-more">
-    <a href="" title="Load more posts" class="button plain_loadmore misha_loadmore">Load More Posts</a>
-</div>
+  $pagination = plain_paging_nav();  
+  if ($pagination):
+?>
+
+<div class="pagination" role="navigation">
+    <?php echo $pagination; ?>
+</div><!-- .navigation -->
+
+<?php endif; ?>
 
 <!-- /pagination -->

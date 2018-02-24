@@ -36,7 +36,11 @@
           
             get_template_part( 'loop');            
           
-          endwhile;
+          endwhile; ?>
+    </div>
+
+    <?php 
+
             if ($wp_query->max_num_pages > 1): 
 
               get_template_part( 'pagination');
@@ -50,7 +54,7 @@
       wp_reset_query();
 
     ?>
-  </div>
+  
 
     
 
