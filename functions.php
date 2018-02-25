@@ -22,11 +22,16 @@ if (!isset($content_width))
 
 if (function_exists('add_theme_support'))
 {
+    
+    // Add Theme Support
+    add_theme_support( 'title-tag' );
+
     // Add Menu Support
     //add_theme_support('menus');
 
     // Add Thumbnail Theme Support
     add_theme_support('post-thumbnails');
+
     add_image_size('large', 700, '', true); // Large Thumbnail
     add_image_size('medium', 250, '', true); // Medium Thumbnail
     add_image_size('small', 120, '', true); // Small Thumbnail
@@ -222,15 +227,15 @@ function plaincomments($comment, $args, $depth)
 	<?php endif; ?>
 	<div class="comment-author vcard">
     	<?php if ($args['avatar_size'] != 0) echo get_avatar( $comment ); ?>
-    	<?php printf(__('<cite class="fn">%s</cite> <span class="says">says:</span>'), get_comment_author_link()) ?>
+    	<?php printf(__('<cite class="fn">%s</cite> <span class="says">says:</span>', 'plain'), get_comment_author_link()) ?>
         <div class="comment-meta commentmetadata">
-            <?php printf( __('%1$s'), get_comment_date()) ?>
+            <?php printf( __('%1$s', 'plain'), get_comment_date()) ?>
             
-            <?php edit_comment_link(__('(Edit)'),'  ','' ); ?>
+            <?php edit_comment_link(__('(Edit)', 'plain'),'  ','' ); ?>
         </div>
 	</div>
 <?php if ($comment->comment_approved == '0') : ?>
-	<em class="comment-awaiting-moderation"><?php _e('Your comment is awaiting moderation.') ?></em>
+	<em class="comment-awaiting-moderation"><?php _e('Your comment is awaiting moderation.', 'plain') ?></em>
 	<br />
 <?php endif; ?>
 
@@ -310,7 +315,6 @@ add_filter('the_category', 'remove_category_rel_from_category_list'); // Remove 
 add_filter('the_excerpt', 'shortcode_unautop'); // Remove auto <p> tags in Excerpt (Manual Excerpts only)
 add_filter('the_excerpt', 'do_shortcode'); // Allows Shortcodes to be executed in Excerpt (Manual Excerpts only)
 add_filter('excerpt_more', 'html5_blank_view_article'); // Add 'View Article' button instead of [...] for Excerpts
-add_filter('show_admin_bar', 'remove_admin_bar'); // Remove Admin bar
 add_filter('style_loader_tag', 'html5_style_remove'); // Remove 'text/css' from enqueued stylesheet
 add_filter('post_thumbnail_html', 'remove_thumbnail_dimensions', 10); // Remove width and height dynamic attributes to thumbnails
 add_filter('image_send_to_editor', 'remove_thumbnail_dimensions', 10); // Remove width and height dynamic attributes to post images
@@ -318,12 +322,6 @@ add_filter('image_send_to_editor', 'remove_thumbnail_dimensions', 10); // Remove
 // Remove Filters
 remove_filter('the_excerpt', 'wpautop'); // Remove <p> tags from Excerpt altogether
 
-// Shortcodes
-add_shortcode('html5_shortcode_demo', 'html5_shortcode_demo'); // You can place [html5_shortcode_demo] in Pages, Posts now.
-add_shortcode('html5_shortcode_demo_2', 'html5_shortcode_demo_2'); // Place [html5_shortcode_demo_2] in Pages, Posts now.
-
-// Shortcodes above would be nested like this -
-// [html5_shortcode_demo] [html5_shortcode_demo_2] Here's the page title! [/html5_shortcode_demo_2] [/html5_shortcode_demo]
 
 /*------------------------------------*\
 	Custom Functions
@@ -477,16 +475,15 @@ class WP_HTML_Compression
     }
 }
 
-function wp_html_compression_finish($html)
-{
+function wp_html_compression_finish($html){
     return new WP_HTML_Compression($html);
 }
 
-function wp_html_compression_start()
-{
+function wp_html_compression_start(){
     ob_start('wp_html_compression_finish');
 }
-add_action('get_header', 'wp_html_compression_start');
+
+//add_action('get_header', 'wp_html_compression_start');
 
        
 //** DEFER THE LOADING OF SOME JS FILES SO AS TO IMPROVE LOAD SPEEED */    
@@ -529,7 +526,7 @@ function sdt_remove_ver_css_js( $src ) {
  * @return string The comment's date.
  */
 function pressfore_comment_time_output($date, $d, $comment){
-    return sprintf( _x( '%s ago', '%s = human-readable time difference', 'your-text-domain' ), human_time_diff( get_comment_time( 'U' ), current_time( 'timestamp' ) ) );
+    return sprintf( _x( '%s ago', '%s = human-readable time difference', 'plain' ), human_time_diff( get_comment_time( 'U' ), current_time( 'timestamp' ) ) );
 }
 add_filter('get_comment_date', 'pressfore_comment_time_output', 10, 3);
 
@@ -568,7 +565,7 @@ function add_comment_author_to_reply_link($link, $args, $comment){
             $user=get_userdata($comment->user_id);
             $author=$user->user_login;
         } else {
-            $author = __('Anonymous');
+            $author = __('Anonymous', 'plain');
         }
     } else {
         $author = $comment->comment_author;

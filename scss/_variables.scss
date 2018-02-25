@@ -180,3 +180,6 @@ table {
     @extend %table-bordered;
 }
 
+
+// WP Required Classes
+.aligncenter, .sticky, .screen-reader-text, .bypostauthor, .gallery-caption  { font-size: inherit; }

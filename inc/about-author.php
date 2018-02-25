@@ -1,18 +1,14 @@
 <footer role="contentinfo">
   <div class="about-author-wrapper">
     
-    <?php
-    
-      if (!(get_theme_mod('plain_theme_options[settings_author_avatar]')) == null){
-      $author_avatar_id = get_theme_mod('plain_theme_options[settings_author_avatar]');
-      $author_avatar = wp_get_attachment_image_src( $author_avatar_id, 'full' );
-
+    <?php if (get_option('settings_author_avatar')): 
+      $author_avatar = get_option('settings_author_avatar');
     ?>
-      <div class="author-photo">
-          <img src="<?php echo $author_avatar ?>" title="<?php echo get_theme_mod('settings_author_name') ?>" alt="<?php echo get_theme_mod('settings_author_name') ?>" />
-      </div>
-    <?php } ?>
-
+    <div class="author-photo">
+      <img src="<?php echo $author_avatar; ?>" title="<?php echo get_theme_mod('settings_author_bio'); ?>" alt="<?php echo $author_avatar; ?>" />
+    </div>
+    <?php endif; ?>
+    
     <div class="author-bio">
         <h3> <?php echo get_theme_mod('settings_author_name') ?></h3>
         
