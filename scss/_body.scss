@@ -1,0 +1,43 @@
+
+.logo-wrapper {
+  img {
+    max-width: 150px;
+  }
+}
+
+.social-menu-wrapper {
+
+  .social-menu {
+
+    li {
+      display: inline-block;
+      margin-left: 20px;
+
+      a {
+        font-size: 1.4em;
+        display: block;
+        color: lighten($font-color-dark, 60%);
+
+        &:hover {
+          color: $highlight-blue;
+          @include transition(color, .3s);
+        }
+      }
+    }
+  }
+}
+
+
+.intro-wrapper {
+  margin-bottom: 1em;
+
+  .blurp {
+    max-width: 60%;
+    margin: 2em 0 5em;
+
+    p {
+      font-size: 1.4em;
+    }
+  }
+
+}
